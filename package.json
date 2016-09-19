@@ -1,0 +1,36 @@
+{
+  "name": "gulp-general-generator",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zongyz/gulp-general-generator.git"
+  },
+  "author": "pigz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zongyz/gulp-general-generator/issues"
+  },
+  "homepage": "https://github.com/zongyz/gulp-general-generator#readme",
+  "devDependencies": {
+    "browser-sync": "^2.16.0",
+    "compression": "^1.6.2",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.0.12",
+    "gulp-debug": "^2.1.2",
+    "gulp-html-prettify": "^0.0.1",
+    "gulp-nunjucks": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-requirejs-optimize": "^1.2.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sequence": "^0.4.6",
+    "gulp-uglify": "^2.0.0",
+    "gulp-watch": "^4.3.9",
+    "node-sass": "^3.10.0",
+    "pump": "^1.0.1"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "gulp-general-generator",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "pigz <zongyz@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "^2.2.0",
+    "jQuery": "^3.1.0",
+    "bootstrap-sass": "^3.3.7"
+  }
+}

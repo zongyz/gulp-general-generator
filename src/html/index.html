@@ -1,0 +1,26 @@
+{% extends 'common/_layout.html' %}
+
+{% block header %}
+    <link rel="stylesheet" type="text/css" href="/asset/css/index.css">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h3>Dependencies:</h3>
+    <ul>
+        {% for item in dependencies %}
+            <li>
+                <a href="https://www.npmjs.com/search?q={{item}}" class="text-{{ colors | random }}" target="_blank">
+                    {{item}}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock%}
+
+{% block footer %}
+    <script type="text/javascript">
+		require(['index']);
+	</script>
+{% endblock %}

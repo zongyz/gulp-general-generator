@@ -1,0 +1,24 @@
+{
+    "name": "gulp general generator",
+    "author": "<a href=\"http://pigz.cn\">pigz</a>",
+    "url": "https://github.com/zongyz/gulp-general-generator",
+    "dependencies": [
+        "browser-sync",
+        "compression",
+        "gulp",
+        "gulp-clean",
+        "gulp-clean-css",
+        "gulp-debug",
+        "gulp-html-prettify",
+        "gulp-nunjucks",
+        "gulp-rename",
+        "gulp-requirejs-optimize",
+        "gulp-sass",
+        "gulp-sequence",
+        "gulp-uglify",
+        "gulp-watch",
+        "node-sass",
+        "pump"
+    ],
+    "colors": ["default", "primary", "success", "info", "warning", "danger"]
+}
