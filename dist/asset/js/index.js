@@ -1,3 +1,1 @@
-define(['_common'], function(){
-	
-});w
+define(["_common"],function(){});

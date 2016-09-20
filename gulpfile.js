@@ -65,8 +65,9 @@ gulp.task('dev', function(done){
 });
 
 gulp.task('build', function(done) {
-	sequence('default', ['build:js', 'build:css', 'build:html'], done);
+	sequence('default', ['build:js', 'build:css', 'build:html'], 'browser', done);
 });
+
 
 // dev task ----------------------------------------------------------------------
 
@@ -123,7 +124,7 @@ gulp.task('js:common', function(done) {
 	pump([
 		gulp.src(FILE.REQUIREJS.COMMON),
 		requirejsOptimize({
-			optimize: 'uglify', // uglify | none
+			optimize: 'none', // uglify | none
 			baseUrl: SRC.JS,
 			wrapShim: true,
 			preserveLicenseComments: false, // remove comment
@@ -230,10 +231,6 @@ gulp.task('build:html', function(){
 			indent_size: 4
 		}))
 		.pipe(gulp.dest(DIST.HTML));
-});
-
-gulp.task('build', function(done) {
-	sequence('default', ['build:js', 'build:css', 'build:html'], done);
 });
 
 
