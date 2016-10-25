@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+	gulpSSH = require('gulp-ssh'),
 	watcher = require('gulp-watch'),
 	sequence = require('gulp-sequence'),
 	debug = require('gulp-debug'),
@@ -10,8 +11,11 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	cleanCSS = require('gulp-clean-css'),
 	htmlPrettify = require('gulp-html-prettify'),
+	htmlmin = require('gulp-htmlmin'), 
+	zip = require('gulp-zip'),
 	pump = require('pump'),
 	fs = require('fs'),
+	moment = require('moment'),
 	browserSync = require('browser-sync');
 
 
@@ -233,4 +237,66 @@ gulp.task('build:html', function(){
 		.pipe(gulp.dest(DIST.HTML));
 });
 
+// deploy task ---------------------------------------------------------------------
+
+var deployShell = 'deploy.sh',
+	releaseFile = 'website_com-' + moment().format('YYYYMMDDhhmmss') + '-release.zip',
+	remoteDeployShell = 'gulp-deploy.sh',
+	remoteTmpDir = '/tmp/',
+	remoteSiteDir = '/data/www/website_com/',
+	sshConfig = {
+		host: 'remote.host.com',
+		port: 22,
+		username: 'root',
+		privateKey: fs.readFileSync('/Users/pigz/.ssh/id_rsa')
+		// host : '192.168.1.1',
+		// port : 22,
+		// username : 'root',
+		// password : 'password'
+	},
+	sshHandle;
+
+
+gulp.task('package', ['build'], function(){
+	console.log('- package file : ' + releaseFile);
+	return gulp.src(PATH.DIST + '**/**')
+			.pipe(zip(releaseFile))
+			.pipe(gulp.dest(PATH.TMP));
+});
+
+gulp.task('publish:package', function(){
+	return gulp.src(PATH.TMP + releaseFile)
+		.pipe(sshHandle.sftp('write', remoteTmpDir + releaseFile))
+});
+
+gulp.task('publish:shell', function(){
+	return gulp.src(ROOT + deployShell)
+			.pipe(sshHandle.sftp('write', remoteTmpDir + remoteDeployShell))
+});
+
+gulp.task('publish', function(done){
+	sshHandle = new gulpSSH({
+		ignoreErrors: false,
+		sshConfig: sshConfig
+	});
+	sequence(['publish:shell', 'publish:package'], done);
+});
+
+gulp.task('deploy', function(done){
+	sequence('package','publish', function(){
+		sshHandle.shell([
+			[
+				'chmod',
+				'755',
+				remoteTmpDir + remoteDeployShell
+			].join(' '),
+			[
+				remoteTmpDir + remoteDeployShell,
+				remoteTmpDir + releaseFile,
+				remoteSiteDir
+			].join(' '),
+		]).pipe(gulp.dest('.tmp'));
+		done();
+	});
+});
 
